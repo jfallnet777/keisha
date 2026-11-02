@@ -1,0 +1,35 @@
+{
+  "name": "Keisha DL · Punto de venta",
+  "short_name": "Keisha DL",
+  "description": "Punto de venta de Keisha DL Papelería y Servicios Múltiples",
+  "lang": "es-DO",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F4F9FD",
+  "theme_color": "#2E9FE0",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "id": "./",
+  "categories": [
+    "business",
+    "productivity"
+  ]
+}

@@ -1,0 +1,29 @@
+KEISHA DL · PUNTO DE VENTA (PWA instalable)
+
+Contenido de esta carpeta:
+  index.html               La aplicación completa
+  manifest.webmanifest     Nombre e ícono de la app
+  sw.js                    Permite abrirla sin internet
+  icon-*.png, favicon.png  Íconos
+
+ACCESO
+  La primera vez que se abre pide crear el usuario ADMINISTRADOR con un PIN.
+  El administrador agrega a las demás personas en Ajustes → Usuarios y permisos.
+  Cada usuario entra con su nombre y su PIN. Sus documentos salen con su nombre.
+  Si alguien olvida su PIN, el administrador le pone uno nuevo.
+  IMPORTANTE: no olvides el PIN del administrador.
+
+INSTALAR COMO APP (con ícono)
+  1. Sube TODA esta carpeta (descomprimida) a GitHub Pages, Netlify o Cloudflare Pages.
+  2. Abre el enlace:
+     Android (Chrome): menú ⋮ → "Instalar app" o "Agregar a la pantalla principal".
+     iPhone (Safari): Compartir → "Agregar a inicio".
+     Computadora (Chrome/Edge): ícono de instalar en la barra de direcciones.
+  3. Ábrela desde el ícono. Después de la primera vez funciona sin internet.
+
+USO SIN INSTALAR (computadora)
+  Doble clic en index.html. Funciona en Chrome o Edge.
+
+DATOS
+  Se guardan en el equipo donde la usas. Haz respaldos seguido:
+  Reportes → Exportar respaldo. Para pasar datos: Importar respaldo en el otro equipo.
