@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Keisha DL · Punto de venta</title>
-<meta name="theme-color" content="#2E9FE0">
+<meta name="theme-color" content="#1592F0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -47,6 +47,8 @@ input,select,textarea,button,details *{box-sizing:border-box}
 [hidden]{display:none !important}
 html,body{height:100%}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{overscroll-behavior-y:none}
+.modal,#lock{overscroll-behavior:contain}
 body{margin:0;background:var(--bg);color:var(--text);font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:14.5px;line-height:1.5;font-variant-numeric:tabular-nums}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--side)}
 button,input,select,textarea{font:inherit;color:inherit}
@@ -260,6 +262,10 @@ body.no-del [data-d],body.no-del [data-ud]{display:none !important}
 @media (max-width:900px){.who{display:none}}
 @media (min-width:901px){.nav .nav-lock{display:none}}
 
+/* ===== Respaldo automático ===== */
+.bk-folder{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.bk-status{background:var(--sky-soft);color:var(--sky-deep);border-radius:12px;padding:10px 12px;font-size:13.5px;display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+
 /* ===== Inicio ===== */
 .home-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--sky-line);background:var(--surface);color:var(--sky-deep);border-radius:11px;padding:8px 13px;font-weight:700;font-size:13.5px;margin-bottom:12px}
 .home-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -435,6 +441,127 @@ details.client[open] summary::before{content:"−"}
   #printArea .page{box-shadow:none;margin:0;break-after:page;page-break-after:always;zoom:1 !important}
   #printArea .page:last-child{break-after:auto;page-break-after:auto}
 }
+
+/* =================== Estilo vivo (v2) =================== */
+:root{
+  --sky:#1592F0; --sky-strong:#0B7BD6; --sky-deep:#0B5CAD; --sky-soft:#E2F1FE; --sky-line:#C3E1FA;
+  --green:#18B25A; --green-soft:#DCF7E6; --red:#EF3B3B; --red-soft:#FFE5E3;
+  --bg:#EEF6FD; --line:#DCEBF8; --text:#0F2740; --muted:#5A7290;
+  --g-blue:linear-gradient(145deg,#3CBDFF 0%,#1A93F5 42%,#0C68D9 78%,#0A55C0 100%);
+  --g-green:linear-gradient(135deg,#34D27A 0%,#12994A 100%);
+  --g-red:linear-gradient(135deg,#FF7158 0%,#E5262E 100%);
+  --sh:0 2px 6px rgba(13,92,173,.06),0 10px 28px rgba(13,92,173,.08);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --sky:#3AA9F5; --sky-strong:#2196E8; --sky-deep:#9ED3FA; --sky-soft:#12324D; --sky-line:#1E4A6E;
+  --green:#3FD07D; --green-soft:#123A24; --red:#FF6157; --red-soft:#43201F;
+  --bg:#0A1826; --surface:#102438; --line:#1C3852; --text:#E6F1FB; --muted:#95AEC6;
+  --sh:0 2px 10px rgba(0,0,0,.35);
+}}
+:root[data-theme="dark"]{
+  --sky:#3AA9F5; --sky-strong:#2196E8; --sky-deep:#9ED3FA; --sky-soft:#12324D; --sky-line:#1E4A6E;
+  --green:#3FD07D; --green-soft:#123A24; --red:#FF6157; --red-soft:#43201F;
+  --bg:#0A1826; --surface:#102438; --line:#1C3852; --text:#E6F1FB; --muted:#95AEC6; --sh:0 2px 10px rgba(0,0,0,.35);
+}
+body{background:linear-gradient(180deg,#F3F9FF 0%,var(--bg) 100%) fixed}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) body{background:var(--bg)} }
+body::before{background:#1592F0}
+
+/* Barra lateral */
+.side{background:var(--g-blue);position:relative;overflow:hidden}
+.side{background:linear-gradient(180deg,#3CBDFF 0%,#1A93F5 38%,#0C68D9 75%,#0A55C0 100%)}
+.side > *{position:relative;z-index:1}
+.brand .tile{box-shadow:0 6px 18px rgba(0,0,0,.15)}
+.nav button{transition:background .15s,transform .1s}
+.nav button[aria-current="page"]{background:#fff;color:#0B5CAD;box-shadow:0 6px 16px rgba(0,40,90,.2)}
+.nav button[aria-current="page"] svg{stroke:#1592F0}
+@media (max-width:900px){ .side::before,.side::after{display:none} }
+
+/* Títulos, tarjetas y botones */
+.page-head h1{background:linear-gradient(90deg,var(--sky-deep),var(--sky));-webkit-background-clip:text;background-clip:text;color:transparent}
+.card{border-color:transparent;box-shadow:var(--sh)}
+.card-head h2{color:var(--sky-deep)}
+.btn{transition:transform .08s,box-shadow .15s,filter .15s}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--g-blue);color:#fff;box-shadow:0 6px 14px rgba(13,114,214,.28)}
+.btn.green{background:var(--g-green);color:#fff;box-shadow:0 6px 14px rgba(18,153,74,.28)}
+.btn.red{background:var(--g-red);color:#fff;box-shadow:0 6px 14px rgba(229,38,46,.28)}
+.btn.soft-green{background:var(--green-soft);color:var(--green)}
+.btn.soft-red{background:var(--red-soft);color:var(--red)}
+.seg{background:var(--sky-soft)}
+.seg button[aria-pressed="true"]{background:var(--g-blue);box-shadow:0 4px 10px rgba(13,114,214,.25)}
+.seg button.is-green[aria-pressed="true"],.seg.g button[aria-pressed="true"]{background:var(--g-green);box-shadow:0 4px 10px rgba(18,153,74,.25)}
+.seg button.is-red[aria-pressed="true"]{background:var(--g-red);box-shadow:0 4px 10px rgba(229,38,46,.25)}
+.pill.blue{background:var(--sky-soft);color:var(--sky-strong)}
+input:focus,select:focus,textarea:focus{box-shadow:0 0 0 4px rgba(21,146,240,.18)}
+
+/* Indicadores */
+.kpi{border-color:transparent;box-shadow:var(--sh);background:linear-gradient(180deg,var(--surface),var(--surface)) padding-box}
+.kpi::before{width:5px;top:0;bottom:0;border-radius:0;background:var(--g-blue)}
+.kpi.g::before{background:var(--g-green)}.kpi.r::before{background:var(--g-red)}
+.kpi b{color:var(--sky-deep)}
+
+
+/* Inicio */
+.hero{background:var(--g-blue);box-shadow:0 14px 34px rgba(13,114,214,.28);padding:30px 30px 34px}
+
+.hero > *{position:relative;z-index:1}
+.hero .stripe{z-index:2}
+.hero .tile{box-shadow:0 8px 22px rgba(0,0,0,.18)}
+.hero .quick-btns .btn{box-shadow:0 6px 16px rgba(0,0,0,.15)}
+.hero .quick-btns .btn.g{background:var(--g-green)}
+.tile-btn{border-color:transparent;box-shadow:var(--sh);transition:transform .15s,box-shadow .15s}
+.tile-btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(13,92,173,.16)}
+.tile-btn .ic{background:var(--g-blue);color:#fff;box-shadow:0 8px 18px rgba(13,114,214,.3)}
+.tile-btn .ic.g{background:var(--g-green);color:#fff;box-shadow:0 8px 18px rgba(18,153,74,.3)}
+.tile-btn .ic.r{background:var(--g-red);color:#fff;box-shadow:0 8px 18px rgba(229,38,46,.3)}
+.tile-btn b{color:var(--sky-deep)}
+.prod{border-color:transparent;box-shadow:0 1px 3px rgba(13,92,173,.08),0 4px 12px rgba(13,92,173,.06)}
+.prod:hover{box-shadow:0 0 0 2px var(--sky) inset,0 8px 18px rgba(13,92,173,.12)}
+.tot .grand{color:var(--sky-strong)}
+.prod .tag{align-self:flex-start}
+.gauge .fill{background:var(--g-blue)}.gauge .fill.ok{background:var(--g-green)}.gauge .fill.bad{background:var(--g-red)}
+.hbar .fill{background:var(--g-blue)}.hbar.g .fill{background:var(--g-green)}.hbar.r .fill{background:var(--g-red)}
+
+/* =================== Pantalla de bloqueo =================== */
+#lock{background:linear-gradient(165deg,#4CC4FF 0%,#2A9DF7 30%,#1479E6 62%,#0B58C6 88%,#0A4BAD 100%);overflow:hidden auto}
+#lock::after{content:"";position:fixed;left:0;right:0;bottom:0;height:6px;background:linear-gradient(90deg,#1592F0 0 60%,#18B25A 60% 80%,#EF3B3B 80% 100%)}
+#lock .lk-wrap{position:relative;z-index:1;max-width:460px}
+#lock .lk-brand{margin-bottom:20px}
+#lock .lk-brand .tile{border-radius:22px;padding:12px 16px;box-shadow:0 0 0 6px rgba(255,255,255,.18),0 18px 40px rgba(0,30,80,.35)}
+#lock .lk-brand img{height:70px}
+#lock .lk-clock{font-size:46px;font-weight:800;letter-spacing:-.02em;line-height:1;text-shadow:0 4px 18px rgba(0,30,80,.25)}
+#lock .lk-hello{font-size:15px;opacity:.95;font-weight:600}
+#lockBox{background:rgba(255,255,255,.93);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:28px;padding:24px 22px;box-shadow:0 24px 60px rgba(0,30,80,.35);border:1px solid rgba(255,255,255,.6);color:#0F2740}
+#lockBox h2{color:#0B5CAD;text-align:center}
+#lockBox .muted{color:#5A7290;text-align:center}
+#lockBox .f{color:#5A7290}
+#lockBox input{background:#fff;color:#0F2740;border-color:#C3E1FA}
+.lk-users{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.lk-users .lk-user{width:128px}
+.lk-users .lk-user.admin{width:170px;padding:20px 10px}
+.lk-users .lk-user.admin .av{width:66px;height:66px;font-size:22px}
+.lk-users .break{flex-basis:100%;height:0}
+.lk-user{border:0;background:#fff;box-shadow:0 4px 14px rgba(13,92,173,.12);padding:16px 8px;transition:transform .15s,box-shadow .15s;color:#0F2740}
+.lk-user:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(13,92,173,.2);background:#fff}
+.lk-user small{color:#5A7290}
+.av{background:var(--g-blue);box-shadow:0 0 0 3px #fff,0 0 0 5px rgba(21,146,240,.35)}
+.av.c1{background:var(--g-green);box-shadow:0 0 0 3px #fff,0 0 0 5px rgba(24,178,90,.35)}
+.av.c2{background:var(--g-red);box-shadow:0 0 0 3px #fff,0 0 0 5px rgba(239,59,59,.35)}
+.lk-user .av{width:54px;height:54px;font-size:18px}
+.lk-me .av{width:64px;height:64px;font-size:21px}
+.lk-me b{color:#0B5CAD;font-size:16px}
+.lk-dots{gap:14px;margin:10px 0}
+.lk-dots i{width:15px;height:15px;border:2px solid #9CCBF3;transition:transform .12s,background .12s}
+.lk-dots i.on{background:var(--g-blue);border-color:transparent;transform:scale(1.15)}
+.lk-pad{gap:12px;max-width:300px;margin:8px auto 0}
+.lk-pad button{border:0;background:#EEF6FD;color:#0B5CAD;border-radius:50%;width:76px;height:76px;padding:0;justify-self:center;font-size:26px;box-shadow:0 3px 0 #D3E7F8;transition:transform .08s,background .12s}
+.lk-pad button:active{transform:translateY(2px);box-shadow:none;background:#D9ECFD}
+.lk-pad button[data-k="⌫"]{background:#FFE5E3;color:#E5262E;box-shadow:0 3px 0 #F9CFCB;font-size:22px}
+.lk-pad button.ok{background:var(--g-green);color:#fff;box-shadow:0 3px 0 #0F7F3D,0 8px 18px rgba(18,153,74,.35);font-size:18px}
+#lkBack{border:0;background:#EEF6FD;color:#0B5CAD}
+@media (max-width:420px){ .lk-pad button{width:68px;height:68px} #lock .lk-clock{font-size:38px} }
+.who .av{background:#fff;color:#0B5CAD;box-shadow:none}
 </style>
 </head>
 <body>
@@ -711,6 +838,8 @@ details.client[open] summary::before{content:"−"}
       <div class="card"><div class="card-head"><h2>Respaldo de datos</h2><span class="sub">archivo JSON</span></div>
         <div class="card-body"><p class="muted" style="margin:0 0 14px">Guarda en un solo archivo los productos, clientes, cotizaciones, facturas, abonos y ajustes. Úsalo para tener una copia o pasar los datos a otro equipo.</p>
         <div class="acts" style="justify-content:flex-start"><button class="btn green" id="bkExport">Exportar respaldo</button><button class="btn" id="bkImport">Importar respaldo</button></div></div></div>
+      <div class="card" style="grid-column:1/-1"><div class="card-head"><h2>Respaldo automático</h2><span class="sub">cada cierto tiempo y al salir</span></div>
+        <div class="card-body" id="bkAuto"></div></div>
       <div class="card"><div class="card-head"><h2>Productos en Excel</h2><span class="sub">archivo .xlsx</span></div>
         <div class="card-body"><p class="muted" style="margin:0 0 14px">Columnas: Código, Descripción, Tipo (Unidad, Granel o Empaque), Unidad de medida (para granel), Empaque (abreviatura, por ejemplo CJA o PAQ; sale como “CJA X 12 UD”), Cantidad que trae, Costo, Precio sin ITBIS, Lleva ITBIS, Existencia y Existencia mínima. Exporta primero para usarlo como plantilla.</p>
         <div class="acts" style="justify-content:flex-start"><button class="btn green" id="xlExport">Exportar a Excel</button><button class="btn" id="xlImport">Importar desde Excel</button></div></div></div>
@@ -781,7 +910,7 @@ details.client[open] summary::before{content:"−"}
 <div class="modal" id="splitModal" role="dialog" aria-modal="true" aria-label="Dividir cotización"><div class="adj-box" id="splitBox"></div></div>
 <div class="modal" id="payModal" role="dialog" aria-modal="true" aria-label="Registrar pago"><div class="adj-box" id="payBox"></div></div>
 <div class="modal" id="formModal" role="dialog" aria-modal="true"><div class="dialog" id="formBox"></div></div>
-<div id="lock"><div class="lk-wrap"><div class="lk-brand"><div class="tile"><img id="lockLogo" alt="Keisha DL"></div><b>Keisha DL · Punto de venta</b></div><div id="lockBox"><p class="muted" style="text-align:center;margin:0">Cargando…</p></div></div></div>
+<div id="lock"><div class="lk-wrap"><div class="lk-brand"><div class="tile"><img id="lockLogo" alt="Keisha DL"></div><div class="lk-clock" id="lkClock"></div><div class="lk-hello" id="lkHello">Keisha DL · Punto de venta</div></div><div id="lockBox"><p class="muted" style="text-align:center;margin:0">Cargando…</p></div></div></div>
 <div id="measure"></div>
 <div id="pdfStage"></div>
 <input type="file" id="fileJson" accept=".json,application/json" hidden>
@@ -845,13 +974,13 @@ const store = {
     if(this.db){ const s=await this.db.collection(col).limit(1000).get(); return s.docs.map(d=>({id:d.id,...d.data()})); }
     return this.lsGet(col,[]);
   },
-  async put(col,obj){
+  async put(col,obj){ try{ markDirty(); }catch(e){}
     if(this.db){ const {id,...rest}=obj; await this.db.collection(col).doc(id).set(JSON.parse(JSON.stringify(rest))); return; }
     const a=this.lsGet(col,[]); const i=a.findIndex(x=>x.id===obj.id); if(i>=0)a[i]=obj; else a.push(obj); this.lsSet(col,a);
   },
-  async del(col,id){ if(this.db){ await this.db.collection(col).doc(id).delete(); return; } this.lsSet(col,this.lsGet(col,[]).filter(x=>x.id!==id)); },
+  async del(col,id){ try{ markDirty(); }catch(e){} if(this.db){ await this.db.collection(col).doc(id).delete(); return; } this.lsSet(col,this.lsGet(col,[]).filter(x=>x.id!==id)); },
   async getCfg(){ if(this.db){ const s=await this.db.doc("config/empresa").get(); return s.exists?s.data():null; } return this.lsGet("config",null); },
-  async setCfg(v){ if(this.db){ await this.db.doc("config/empresa").set(v); return; } this.lsSet("config",v); }
+  async setCfg(v){ try{ markDirty(); }catch(e){} if(this.db){ await this.db.doc("config/empresa").set(v); return; } this.lsSet("config",v); }
 };
 
 /* ---------- Estado y utilidades ---------- */
@@ -1653,6 +1782,7 @@ function cxcPages(){
     rows, foot:repFoot([...G.map(g=>[g.label,rd(g.pend)]),["Facturas pendientes",T.n],["Total facturado a crédito",rd(T.t)],["Total abonado",rd(T.a)],["Total por cobrar",rd(T.p),"big"]]) });
 }
 function renderReports(){
+  renderBk();
   const L=faltantes();
   $("falBody").innerHTML=L.map(x=>`<tr><td data-l="Código">${esc(x.p.cod)||"—"}</td><td data-l="Descripción" class="strong">${esc(x.p.desc)}</td>
     <td data-l="Existencia" class="num"><span class="pill ${x.st<=0?"red":"blue"}">${x.st<=0?"Agotado ("+esc(fmtQty(x.st))+")":esc(qtyLbl(x.st,unitOf(x.p)))}</span></td><td data-l="Mínimo" class="num">${fmtQty(x.mn)}</td>
@@ -1673,13 +1803,16 @@ $("cxmPdf").onclick=()=>downloadPDF(cxcPages(),"CxC-por-mes-"+today().split("/")
 /* ---------- Respaldo JSON ---------- */
 const stamp = () => today().split("/").reverse().join("-");
 $("bkExport").onclick=()=>busy($("bkExport"),"Preparando…",async()=>{
-  const data={app:"keisha-dl-pos",version:3,exportado:new Date().toISOString(),config:S.cfg,productos:S.products,clientes:S.clients,documentos:S.docs,proveedores:S.provs,pedidos:S.peds};
+  const data=backupData();
   await saveFile("respaldo-keisha-dl-"+stamp()+".json",new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));
 });
 $("bkImport").onclick=()=>{ $("fileJson").value=""; $("fileJson").click(); };
 $("fileJson").onchange=async e=>{
   const f=e.target.files[0]; if(!f) return;
   let data; try{ data=JSON.parse(await f.text()); }catch(err){ return toast("Ese archivo no es un respaldo válido (JSON dañado)."); }
+  showImport(data);
+};
+function showImport(data){
   if(!data||data.app!=="keisha-dl-pos"||!Array.isArray(data.productos)||!Array.isArray(data.documentos)) return toast("Ese archivo no es un respaldo de este punto de venta.");
   const cl=data.clientes||[];
   $("formBox").innerHTML=`<h2>Importar respaldo</h2>
@@ -1690,7 +1823,7 @@ $("fileJson").onchange=async e=>{
   $("fCancel").onclick=closeForm;
   $("bkMerge").onclick=()=>applyBackup(data,false);
   $("bkReplace").onclick=()=>applyBackup(data,true);
-};
+}
 async function applyBackup(data,replace){
   closeForm();
   await safe(async()=>{
@@ -2601,12 +2734,13 @@ function applyPerms(){
   $("usersCard").hidden=!(S.user&&S.user.admin);
 }
 function setSession(u){
-  S.user=u; LK.last=Date.now();
-  try{ sessionStorage.setItem("kdl:sess",JSON.stringify({id:u.id,t:Date.now()})); }catch(e){}
+  S.user=u; LK.last=Date.now(); askDirPermission();
+  saveSess();
   $("lock").hidden=true; applyPerms(); go("inicio"); renderAllLists();
 }
 function lockApp(){
-  S.user=null; try{ sessionStorage.removeItem("kdl:sess"); }catch(e){}
+  if(S.user&&bkCfg().onExit) runBackup("al salir");
+  S.user=null; try{ localStorage.removeItem("kdl:sess"); sessionStorage.removeItem("kdl:sess"); }catch(e){}
   ["formModal","docModal","adjModal","splitModal","payModal"].forEach(id=>$(id).classList.remove("on"));
   LK.sel=null; LK.pin=""; renderLock(); $("lock").hidden=false;
 }
@@ -2628,14 +2762,14 @@ function renderLock(){
   }
   if(!LK.sel){
     L.innerHTML=`<h2>¿Quién entra?</h2><p class="muted" style="margin:-4px 0 16px">Elige tu nombre y escribe tu PIN.</p>
-      <div class="lk-users">${users().map(u=>`<button class="lk-user" data-u="${u.id}"><span class="av">${esc(initials(u.nombre))}</span><span>${esc(u.nombre)}</span><small>${u.admin?"Administrador":"Usuario"}</small></button>`).join("")}</div>`;
+      <div class="lk-users">${(()=>{ const ad=users().filter(u=>u.admin), ot=users().filter(u=>!u.admin); return [...ad,...(ad.length&&ot.length?[null]:[]),...ot]; })().map(u=>u===null?`<span class="break"></span>`:`<button class="lk-user ${u.admin?"admin":""}" data-u="${u.id}"><span class="av c${users().indexOf(u)%3}">${esc(initials(u.nombre))}</span><span>${esc(u.nombre)}</span><small>${u.admin?"Administrador":"Usuario"}</small></button>`).join("")}</div>`;
     L.querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{ LK.sel=b.dataset.u; LK.pin=""; renderLock(); });
     return;
   }
   const u=users().find(x=>x.id===LK.sel);
   const wait=Math.ceil((LK.until-Date.now())/1000);
   L.innerHTML=`<button class="btn sm line" id="lkBack" style="margin-bottom:10px">← Cambiar de usuario</button>
-    <div class="lk-me"><span class="av">${esc(initials(u.nombre))}</span><b>${esc(u.nombre)}</b></div>
+    <div class="lk-me"><span class="av c${users().indexOf(u)%3}">${esc(initials(u.nombre))}</span><b>${esc(u.nombre)}</b></div>
     <div class="lk-dots">${[0,1,2,3,4,5].map(i=>`<i class="${i<LK.pin.length?"on":""}"></i>`).join("")}</div>
     <div class="lk-msg" id="lkMsg">${wait>0?`Demasiados intentos. Espera ${wait} s.`:""}</div>
     <div class="lk-pad">${[1,2,3,4,5,6,7,8,9,"⌫",0,"OK"].map(k=>`<button data-k="${k}" class="${k==="OK"?"ok":""}">${k}</button>`).join("")}</div>`;
@@ -2660,12 +2794,18 @@ function lkTry(){
   renderLock(); const m=$("lkMsg"); if(m&&!m.textContent) m.textContent="PIN incorrecto"; $("lockBox").classList.remove("shake"); void $("lockBox").offsetWidth; $("lockBox").classList.add("shake");
 }
 document.addEventListener("keydown",e=>{ if(!$("lock").hidden && LK.sel && (/^\d$/.test(e.key)||e.key==="Backspace"||e.key==="Enter")){ e.preventDefault(); lkKey(e.key); } });
-["click","keydown","touchstart"].forEach(ev=>document.addEventListener(ev,()=>{ LK.last=Date.now(); },{passive:true}));
+/* La sesión sobrevive a un refresco o a que el teléfono cierre la app en segundo plano;
+   solo se cierra con “Salir” o por inactividad. */
+function saveSess(){ if(!S.user) return; try{ localStorage.setItem("kdl:sess",JSON.stringify({id:S.user.id,t:Date.now()})); }catch(e){} }
+let _sessT=0;
+["click","keydown","touchstart","scroll"].forEach(ev=>document.addEventListener(ev,()=>{ LK.last=Date.now(); if(Date.now()-_sessT>20000){ _sessT=Date.now(); saveSess(); } },{passive:true,capture:true}));
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") saveSess(); });
 setInterval(()=>{ const m=+S.cfg.autoLock||0; if(S.user&&m>0&&Date.now()-(LK.last||Date.now())>m*60000){ lockApp(); toast("Sesión cerrada por inactividad"); } },20000);
 function startAuth(){
   if(!users().length){ renderLock(); $("lock").hidden=false; return; }
-  try{ const s=JSON.parse(sessionStorage.getItem("kdl:sess")||"null"); const u=s&&users().find(x=>x.id===s.id);
-    if(u&&Date.now()-s.t<12*3600000){ S.user=u; LK.last=Date.now(); $("lock").hidden=true; applyPerms(); return; } }catch(e){}
+  try{ const s=JSON.parse(localStorage.getItem("kdl:sess")||"null"); const u=s&&users().find(x=>x.id===s.id);
+    const m=+S.cfg.autoLock||0, limit=m>0?m*60000:12*3600000;
+    if(u&&Date.now()-s.t<limit){ S.user=u; LK.last=Date.now(); saveSess(); $("lock").hidden=true; applyPerms(); return; } }catch(e){}
   lockApp();
 }
 /* Administración de usuarios (en Ajustes) */
@@ -2724,9 +2864,105 @@ function userForm(u){
 }
 
 $("lockLogo").src=IMG.logo;
+function lkTick(){ const d=new Date(), hr=d.getHours();
+  $("lkClock").textContent=d.toLocaleTimeString("es-DO",{hour:"numeric",minute:"2-digit"});
+  $("lkHello").textContent=(hr<5?"Buenas noches":hr<12?"Buenos días":hr<19?"Buenas tardes":"Buenas noches")+" · "+d.toLocaleDateString("es-DO",{weekday:"long",day:"numeric",month:"long"}); }
+lkTick(); setInterval(()=>{ if(!$("lock").hidden) lkTick(); },15000);
 $("lockBtn").onclick=lockApp;
 $("newUserBtn").onclick=()=>userForm();
 $("sAutoLock").onchange=e=>safe(async()=>{ S.cfg.autoLock=parseInt(e.target.value)||0; await store.setCfg(S.cfg); toast("Guardado"); });
+
+/* ---------- Respaldos automáticos ---------- */
+const backupData = () => ({app:"keisha-dl-pos",version:3,exportado:new Date().toISOString(),config:S.cfg,productos:S.products,clientes:S.clients,documentos:S.docs,proveedores:S.provs,pedidos:S.peds});
+const IDB={ db:null,
+  open(){ if(this.db) return Promise.resolve(this.db); return new Promise((res,rej)=>{ try{ const r=indexedDB.open("kdl-respaldos",1);
+    r.onupgradeneeded=()=>r.result.createObjectStore("kv"); r.onsuccess=()=>{ this.db=r.result; res(this.db); }; r.onerror=()=>rej(r.error); }catch(e){ rej(e); } }); },
+  async get(k){ const db=await this.open(); return new Promise((res,rej)=>{ const q=db.transaction("kv").objectStore("kv").get(k); q.onsuccess=()=>res(q.result); q.onerror=()=>rej(q.error); }); },
+  async set(k,v){ const db=await this.open(); return new Promise((res,rej)=>{ const t=db.transaction("kv","readwrite"); t.objectStore("kv").put(v,k); t.oncomplete=()=>res(); t.onerror=()=>rej(t.error); }); },
+  async del(k){ const db=await this.open(); return new Promise((res,rej)=>{ const t=db.transaction("kv","readwrite"); t.objectStore("kv").delete(k); t.oncomplete=()=>res(); t.onerror=()=>rej(t.error); }); }
+};
+const BK={ dir:null, perm:"none", running:false };
+const canFolder = () => typeof window.showDirectoryPicker==="function" && !window.claude;
+const lsN=(k,d)=>{ try{ const v=localStorage.getItem("kdl:"+k); return v==null?d:+v; }catch(e){ return d; } };
+const lsS=(k,v)=>{ try{ localStorage.setItem("kdl:"+k,String(v)); }catch(e){} };
+const markDirty=()=>lsS("bkChange",Date.now());
+const bkCfg=()=>({every:5,onExit:true,keep:30,...(S.cfg.autoBk||{})});
+const fmtDT=ts=>{ const d=new Date(ts); return fmtDate(d)+" "+d.toLocaleTimeString("es-DO",{hour:"2-digit",minute:"2-digit"}); };
+const bkName=()=>{ const d=new Date(), p=n=>String(n).padStart(2,"0"); return `respaldo-keisha-dl-${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}.json`; };
+async function loadDir(){
+  if(!canFolder()) return;
+  try{ BK.dir=await IDB.get("dir")||null; BK.perm=BK.dir? await BK.dir.queryPermission({mode:"readwrite"}) : "none"; }catch(e){ BK.dir=null; BK.perm="none"; }
+}
+async function askDirPermission(){ // se llama con un toque del usuario (al entrar con el PIN)
+  if(!BK.dir||BK.perm==="granted") return;
+  try{ BK.perm=await BK.dir.requestPermission({mode:"readwrite"}); }catch(e){}
+  renderBk();
+}
+async function chooseDir(){
+  try{
+    const h=await window.showDirectoryPicker({id:"keisha-respaldos",mode:"readwrite",startIn:"documents"});
+    BK.dir=h; BK.perm=await h.requestPermission({mode:"readwrite"}); await IDB.set("dir",h);
+    renderBk(); toast("Carpeta elegida: "+h.name); await runBackup("primer respaldo en la carpeta",true);
+  }catch(e){ if(e&&e.name!=="AbortError") toast("No se pudo usar esa carpeta."); }
+}
+async function runBackup(reason,force){
+  if(BK.running) return; if(!S.user&&!force) return;
+  const changed=lsN("bkChange",1)>lsN("bkLast",0);
+  if(!changed&&!force){ lsS("bkLastTry",Date.now()); return; }
+  BK.running=true;
+  try{
+    const json=JSON.stringify(backupData()), name=bkName(); let where="";
+    if(BK.dir&&BK.perm==="granted"){
+      try{
+        const fh=await BK.dir.getFileHandle(name,{create:true}); const w=await fh.createWritable(); await w.write(json); await w.close();
+        where="carpeta “"+BK.dir.name+"”";
+        const keep=bkCfg().keep; if(keep>0){ const files=[]; for await (const [n,h] of BK.dir.entries()){ if(h.kind==="file"&&/^respaldo-keisha-dl-.*\.json$/.test(n)) files.push(n); }
+          files.sort(); for(const n of files.slice(0,Math.max(0,files.length-keep))) { try{ await BK.dir.removeEntry(n); }catch(e){} } }
+      }catch(e){ BK.perm="prompt"; where=""; }
+    }
+    if(!where){ // copia interna en este equipo
+      const snaps=(await IDB.get("snaps"))||[]; snaps.unshift({ts:Date.now(),reason,name,json}); await IDB.set("snaps",snaps.slice(0,10)); where="este equipo (copia interna)";
+    }
+    lsS("bkLast",Date.now()); lsS("bkLastTry",Date.now()); try{ localStorage.setItem("kdl:bkWhere",where); localStorage.setItem("kdl:bkReason",reason); }catch(e){}
+    if(reason!=="al salir") toast("Respaldo automático guardado en "+where);
+  }catch(e){ console.error(e); }
+  finally{ BK.running=false; renderBk(); }
+}
+setInterval(()=>{ if(!S.user) return; const h=+bkCfg().every||0; if(h>0&&Date.now()-lsN("bkLastTry",Date.now())>=h*3600000) runBackup("cada "+h+" horas"); },60000);
+if(lsN("bkLastTry",0)===0) lsS("bkLastTry",Date.now());
+const exitBk=()=>{ if(S.user&&bkCfg().onExit) runBackup("al salir"); };
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") exitBk(); });
+window.addEventListener("pagehide",exitBk);
+async function renderBk(){
+  if(!$("bkAuto")) return;
+  const c=bkCfg(), last=lsN("bkLast",0);
+  let where=""; try{ where=localStorage.getItem("kdl:bkWhere")||""; }catch(e){}
+  const folderUI = canFolder() ? (BK.dir
+      ? `<div class="bk-folder"><span>📁 <b>${esc(BK.dir.name)}</b> ${BK.perm==="granted"?`<span class="pill green">Lista</span>`:`<span class="pill red">Falta permiso</span>`}</span>
+         <span class="acts">${BK.perm!=="granted"?`<button class="btn sm green" id="bkPerm">Dar permiso</button>`:""}<button class="btn sm" id="bkDir">Cambiar carpeta</button><button class="btn sm soft-red" id="bkNoDir">Quitar</button></span></div>`
+      : `<div class="bk-folder"><span class="muted">Todavía no has elegido carpeta. Los respaldos se guardan como copia interna.</span><button class="btn sm green" id="bkDir">Elegir carpeta</button></div>`)
+    : `<div class="notice">${window.claude?"La carpeta de respaldos se usa en la versión instalada (PWA) o en el HTML abierto en Chrome o Edge en la computadora. Aquí los respaldos automáticos se guardan como copia interna.":"Este navegador o equipo no permite elegir carpeta (por ejemplo, en teléfonos). Los respaldos automáticos se guardan como copia interna; descarga uno de vez en cuando con “Exportar respaldo”."}</div>`;
+  const snaps=((await IDB.get("snaps").catch(()=>null))||[]);
+  $("bkAuto").innerHTML=`
+    <div class="t" style="font-weight:700;margin-bottom:8px">Carpeta de respaldos en esta computadora</div>${folderUI}
+    <div class="g3" style="margin-top:12px">
+      <label class="f">Respaldar automáticamente<select id="bkEvery">${[[0,"Nunca"],[1,"Cada hora"],[2,"Cada 2 horas"],[3,"Cada 3 horas"],[5,"Cada 5 horas"],[8,"Cada 8 horas"],[12,"Cada 12 horas"],[24,"Una vez al día"]].map(([v,n])=>`<option value="${v}" ${+c.every===v?"selected":""}>${n}</option>`).join("")}</select></label>
+      <label class="f">Conservar en la carpeta<select id="bkKeep">${[[10,"Últimos 10"],[30,"Últimos 30"],[60,"Últimos 60"],[0,"Todos"]].map(([v,n])=>`<option value="${v}" ${+c.keep===v?"selected":""}>${n}</option>`).join("")}</select></label>
+      <label class="chk-row" style="align-self:end;margin-bottom:14px"><input type="checkbox" id="bkExit" ${c.onExit?"checked":""}> Respaldar al salir</label>
+    </div>
+    <div class="bk-status">${last?`Último respaldo automático: <b>${fmtDT(last)}</b>${where?" en "+esc(where):""}`:"Aún no hay respaldos automáticos."} <button class="btn sm primary" id="bkNow" style="margin-left:8px">Respaldar ahora</button></div>
+    ${snaps.length?`<details style="margin-top:12px"><summary style="cursor:pointer;font-weight:700;color:var(--sky-deep)">Copias internas en este equipo (${snaps.length})</summary>
+      <div class="adj-rows" style="margin-top:8px">${snaps.map((s,i)=>`<div class="adj-row"><div class="d">${fmtDT(s.ts)}<div class="kit-inc">${esc(s.reason)} · ${(s.json.length/1024).toFixed(0)} KB</div></div><div class="acts"><button class="btn sm" data-sdl="${i}">Descargar</button><button class="btn sm soft-red" data-srs="${i}">Restaurar</button></div></div>`).join("")}</div></details>`:""}`;
+  const saveC=async patch=>{ S.cfg.autoBk={...bkCfg(),...patch}; await store.setCfg(S.cfg); };
+  $("bkEvery").onchange=e=>saveC({every:+e.target.value}); $("bkKeep").onchange=e=>saveC({keep:+e.target.value}); $("bkExit").onchange=e=>saveC({onExit:e.target.checked});
+  $("bkNow").onclick=()=>runBackup("manual",true);
+  if($("bkDir")) $("bkDir").onclick=chooseDir;
+  if($("bkPerm")) $("bkPerm").onclick=async()=>{ await askDirPermission(); if(BK.perm==="granted") toast("Permiso dado"); };
+  if($("bkNoDir")) $("bkNoDir").onclick=async()=>{ BK.dir=null; BK.perm="none"; await IDB.del("dir"); renderBk(); toast("Carpeta quitada"); };
+  $("bkAuto").querySelectorAll("[data-sdl]").forEach(b=>b.onclick=()=>{ const s=snaps[+b.dataset.sdl]; saveFile(s.name,new Blob([s.json],{type:"application/json"})); });
+  $("bkAuto").querySelectorAll("[data-srs]").forEach(b=>b.onclick=()=>{ const s=snaps[+b.dataset.srs]; try{ showImport(JSON.parse(s.json)); }catch(e){ toast("Esa copia está dañada."); } });
+}
+
 /* ---------- Pantalla de inicio ---------- */
 $("heroLogo").src=IMG.logo;
 const HOME_SVG='<svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg>';
@@ -2779,6 +3015,7 @@ renderAllLists();
     for(const x of S.products){ if(ptype(x)==="empaque"&&String(x.abrev||"").toUpperCase()==="CAJ"){ x.abrev="CJA"; try{ await store.put("productos",x); }catch(e){} } } S.docs=d.map(x=>({cond:"contado",pagos:[],...x}));
     $("status").textContent=store.db?"Datos guardados en la nube":"Datos guardados en este equipo";
   }catch(e){ console.error(e); $("status").textContent="No se pudieron cargar los datos"; }
+  await loadDir();
   startAuth();
   renderAllLists();
 })();

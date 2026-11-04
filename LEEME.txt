@@ -27,3 +27,9 @@ USO SIN INSTALAR (computadora)
 DATOS
   Se guardan en el equipo donde la usas. Haz respaldos seguido:
   Reportes → Exportar respaldo. Para pasar datos: Importar respaldo en el otro equipo.
+
+RESPALDO AUTOMÁTICO (computadora)
+  En Reportes → Respaldo automático toca "Elegir carpeta" y escoge, por ejemplo,
+  una carpeta dentro de Google Drive o OneDrive para tener copia en la nube.
+  La app guarda un respaldo cada 5 horas (se puede cambiar) y al salir.
+  Al entrar con tu PIN, el navegador puede pedir permiso para usar la carpeta: acepta.
