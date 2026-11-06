@@ -1,5 +1,5 @@
 // Permite abrir la app sin internet después de la primera visita.
-const CACHE = "keisha-dl-v20";
+const CACHE = "keisha-dl-v21";
 const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icon-192-v3.png", "./icon-512-v3.png", "./icon-maskable-512-v3.png", "./apple-touch-icon.png", "./apple-touch-icon-180.png", "./apple-touch-icon-167.png", "./apple-touch-icon-152.png", "./favicon-v3.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL))); self.skipWaiting(); });
 self.addEventListener("activate", e => {
