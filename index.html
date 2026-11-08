@@ -373,6 +373,8 @@ details.client[open] summary::before{content:"−"}
 .toast.on{opacity:1}
 
 /* ===== Documento (formato de la empresa, A4) ===== */
+.page-fit{flex:none;overflow:hidden}
+.page,.page *{-webkit-text-size-adjust:none;text-size-adjust:none}
 .page{width:794px;height:1123px;background:#fff;color:#000;font-family:"Times New Roman",Times,"Liberation Serif",serif;font-size:15px;line-height:1.15;padding:52px 18px 34px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.18);flex:none}
 .page *{color:#000}
 .page .p-inner{display:flex;flex-direction:column;flex:1;min-height:0}
@@ -1489,8 +1491,14 @@ function buildPages(d){
 const docName = d => (d.type==="FACTURA"?"Factura":"Cotizacion")+"-"+refShort(d);
 let opened=null; // {html, name}
 function fitPages(){
+  // Se achica la hoja como una imagen (transform), igual en iPhone, Android y computadora.
   const holder=$("docHolder"); const z=Math.min(1,(holder.clientWidth-4)/794);
-  holder.querySelectorAll(".page").forEach(p=>p.style.zoom=z);
+  holder.querySelectorAll(".page").forEach(p=>{
+    let w=p.parentElement;
+    if(!w.classList.contains("page-fit")){ w=document.createElement("div"); w.className="page-fit"; p.parentNode.insertBefore(w,p); w.appendChild(p); }
+    p.style.zoom=""; p.style.transformOrigin="top left"; p.style.transform= z<1 ? `scale(${z})` : "";
+    w.style.width=(794*z)+"px"; w.style.height=(1123*z)+"px";
+  });
 }
 function openPages(html,name){ opened={html,name}; $("convDoc").hidden=true; $("adjDoc").hidden=true; $("splitDoc").hidden=true; $("docModal").classList.add("on"); $("docHolder").innerHTML=html; fitPages(); }
 function openDoc(d){ openPages(buildPages(d),docName(d)); opened.doc=d;
