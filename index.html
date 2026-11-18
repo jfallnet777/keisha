@@ -481,6 +481,18 @@ body::before{background:#4FAEFF}
 .nav button{transition:background .15s,transform .1s}
 .nav button[aria-current="page"]{background:#fff;color:#1F55B5;box-shadow:0 6px 16px rgba(0,40,90,.2)}
 .nav button[aria-current="page"] svg{stroke:#1592F0}
+/* Íconos del menú en los colores de la marca, alternados */
+.nav button svg{box-sizing:content-box;width:17px;height:17px;padding:6px;border-radius:10px;background:#fff;box-shadow:0 2px 6px rgba(0,40,90,.12)}
+.nav button:nth-child(3n+1) svg{stroke:#2B78EC}
+.nav button:nth-child(3n+2) svg{stroke:#3AA56E}
+.nav button:nth-child(3n) svg{stroke:#D95A53}
+.nav button[aria-current="page"]:nth-child(3n+1) svg{background:var(--g-blue);stroke:#fff}
+.nav button[aria-current="page"]:nth-child(3n+2) svg{background:var(--g-green);stroke:#fff}
+.nav button[aria-current="page"]:nth-child(3n) svg{background:var(--g-red);stroke:#fff}
+/* Íconos de las secciones en Inicio: azul, verde y rojo alternados */
+.tiles .tile-btn:nth-child(3n+1) .ic{background:var(--g-blue);box-shadow:0 8px 18px rgba(43,120,236,.22)}
+.tiles .tile-btn:nth-child(3n+2) .ic{background:var(--g-green);box-shadow:0 8px 18px rgba(58,165,110,.22)}
+.tiles .tile-btn:nth-child(3n) .ic{background:var(--g-red);box-shadow:0 8px 18px rgba(217,90,83,.22)}
 @media (max-width:900px){ .side::before,.side::after{display:none} }
 
 /* Títulos, tarjetas y botones */
